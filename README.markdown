@@ -25,4 +25,5 @@ Future plans:
 
 * Option to only use birds found in specific region
 * Limit photo search to specific groups?
+* Create family relationships so that offered birds are more similar, thus making the quiz a bit harder.
 * Preserve user score

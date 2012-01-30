@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title></title>
+  <title>Bird Match</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
@@ -17,7 +17,7 @@
 
   <div id="container">
     <header>
-
+        <h1>Bird Match</h1>
     </header>
     <div id="main" role="main">
         <form>
@@ -36,59 +36,7 @@
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
   <script>window.jQuery || document.write("<script src='js/libs/jquery-1.7.1.min.js'>\x3C/script>")</script>
-  <script src="js/plugins.js"></script>
-  <script src="js/script.js"></script>
-  <script>
-      var eBirdTaxaUrl = 'http://ebird.org/ws1.1/ref/taxa/ebird?cat=species&locale=en_US&fmt=json&callback=?',
-          eBirdData = [],
-          flickrKey = '41cae44ac5d84579ae23b784321f9377',
-          flickrSecret= '421f1282ebace3b5',
-          flickrBaseUrl = 'http://api.flickr.com/services/feeds/photos_public.gne?',
-          flickrTags = '',
-          flickrTagMode = 'any',
-          flickrFormat = 'json',
-          flickrCallback = '?',
-          shuffle = function(o) {
-                  for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-                  return o;
-          },
-          $wrapper = $('<figure><img src="" alt="" /><figcaption><p class="hidden"></p></figcaption></figure>'),
-          $option = $('<option value=""/>');
-          
-          $.getJSON(eBirdTaxaUrl, function(eBirdData) {
-              var species = eBirdData[Math.floor(Math.random()*eBirdData.length)],
-                  commonName = species['comName'],
-                  scientificName = species['sciName'],
-                  taxonID = species['taxonID'],
-                  genus = scientificName.split(' ')[0],
-                  flickrTags = commonName+','+scientificName,
-                  companions = [];
-                  
-              $.each(eBirdData,function(i,v){
-                  if(v.sciName.indexOf(genus, 0) >= 0 && v.taxonID != taxonID){
-                      companions.push(this);
-                  }
-              });
-              
-              shuffle(eBirdData);
-              
-              $.getJSON(flickrBaseUrl+'tags='+flickrTags+'&tagmode='+flickrTagMode+'&format='+flickrFormat+'&jsoncallback='+flickrCallback,function(flickrData){
-                  var image = flickrData.items[Math.floor(Math.random()*flickrData.items.length)];
-                  $wrapper.clone().find('img')
-                      .attr('src',image.media.m)
-                  .end().find('p')
-                      .html(image.title)
-                  .end().prependTo('#main');
-                  
-                  var quizOptions = [eBirdData[0],eBirdData[1],eBirdData[2],eBirdData[3],species];
-                  shuffle(quizOptions);
-                  
-                  $.each(quizOptions,function(i,v){
-                      $option.clone().val(v.taxonID).html(v.comName).appendTo('select');
-                  });
-              });
-          });
-  </script>
+  <script src="js/match.js"></script>
   <!-- end scripts-->
 </body>
 </html>
