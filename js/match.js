@@ -1,88 +1,20 @@
-//var eBirdTaxaUrl = 'http://ebird.org/ws1.1/ref/taxa/ebird?cat=species&locale=en_US&fmt=json&callback=?',
-//    speciesList = [],
-//    flickrKey = '41cae44ac5d84579ae23b784321f9377',
-//    flickrSecret= '421f1282ebace3b5',
-//    flickrBaseUrl = 'http://api.flickr.com/services/feeds/photos_public.gne?',
-//    flickrTags = '',
-//    flickrTagMode = 'any',
-//    flickrFormat = 'json',
-//    flickrCallback = '?',
-//    shuffle = function(o) {
-//            for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-//            return o;
-//    },
-//    $wrapper = $('<figure><img src="" alt="" /><figcaption><p class="hidden"></p></figcaption></figure>'),
-//    $option = $('<option value=""/>');
-//    
-//$.getJSON(eBirdTaxaUrl, function(eBirdData) {
-//    speciesList = shuffle(eBirdData);
-//    
-//    getSpeciesPhotos(selectRandomSpecies(speciesList));
-//});
-//
-//var selectRandomSpecies = function(speciesList){
-//    return speciesList[Math.floor(Math.random()*speciesList.length)];
-//},
-//getFlickrTags = function(species){
-//    return species.comName+','+species.sciName;
-//},
-//getSpeciesPhotos = function(species){
-//    var flickrKey = '41cae44ac5d84579ae23b784321f9377',
-//    flickrSecret= '421f1282ebace3b5',
-//    flickrBaseUrl = 'http://api.flickr.com/services/feeds/photos_public.gne?',
-//    flickrTags = getFlickrTags(species),
-//    flickrTagMode = 'any',
-//    flickrFormat = 'json',
-//    flickrCallback = '?';
-//    
-//    console.log('retrieving photos for '+species.comName+'...', species);
-//    $.getJSON(flickrBaseUrl+'tags='+flickrTags+'&tagmode='+flickrTagMode+'&format='+flickrFormat+'&jsoncallback='+flickrCallback,function(flickrData){
-//        if(flickrData.items.length === 0) {
-//            console.log('No photos found, retrying with different species');
-//            getSpeciesPhotos(selectRandomSpecies(speciesList));
-//        } else {
-//            console.log(flickrData.items.length+' images found');
-//            var image = flickrData.items[Math.floor(Math.random()*flickrData.items.length)];
-//            $wrapper.clone().find('img')
-//                .attr('src',image.media.m)
-//            .end().find('p')
-//                .html(image.title)
-//            .end().prependTo('#main');
-//            
-//            var quizOptions = [speciesList[0],speciesList[1],speciesList[2],speciesList[3],species];
-//            shuffle(quizOptions);
-//            
-//            $.each(quizOptions,function(i,v){
-//                $option.clone().val(v.taxonID).html(v.comName).appendTo('select');
-//            });
-//        }
-//    });
-//};
+//lng=-73.970196&lat=40.774641&dist=50&back=30
 
-//var eBirdJSON = [{"comName":"Ostrich","sciName":"Struthio camelus","taxonID":"TC000001"},{"comName":"Greater Rhea","sciName":"Rhea americana","taxonID":"TC000004"},{"comName":"Lesser Rhea","sciName":"Rhea pennata","taxonID":"TC000005"},{"comName":"Southern Cassowary","sciName":"Casuarius casuarius","taxonID":"TC000008"},{"comName":"Dwarf Cassowary","sciName":"Casuarius bennetti","taxonID":"TC000009"},{"comName":"Northern Cassowary","sciName":"Casuarius unappendiculatus","taxonID":"TC000010"},{"comName":"Emu","sciName":"Dromaius novaehollandiae","taxonID":"TC000011"},{"comName":"King Island Emu","sciName":"Dromaius ater","taxonID":"TC000012"},{"comName":"Southern Brown Kiwi","sciName":"Apteryx australis","taxonID":"TC000013"},{"comName":"Okarito Brown Kiwi","sciName":"Apteryx rowi","taxonID":"TC000014"},{"comName":"North Island Brown Kiwi","sciName":"Apteryx mantelli","taxonID":"TC000015"},{"comName":"Little Spotted Kiwi","sciName":"Apteryx owenii","taxonID":"TC000016"},{"comName":"Great Spotted Kiwi","sciName":"Apteryx haastii","taxonID":"TC000017"},{"comName":"Tawny-breasted Tinamou","sciName":"Nothocercus julius","taxonID":"TC000018"},{"comName":"Highland Tinamou","sciName":"Nothocercus bonapartei","taxonID":"TC000019"},{"comName":"Hooded Tinamou","sciName":"Nothocercus nigrocapillus","taxonID":"TC000022"},{"comName":"Gray Tinamou","sciName":"Tinamus tao","taxonID":"TC000023"},{"comName":"Solitary Tinamou","sciName":"Tinamus solitarius","taxonID":"TC000024"},{"comName":"Black Tinamou","sciName":"Tinamus osgoodi","taxonID":"TC000025"},{"comName":"Great Tinamou","sciName":"Tinamus major","taxonID":"TC000026"},{"comName":"White-throated Tinamou","sciName":"Tinamus guttatus","taxonID":"TC000027"},{"comName":"Cinereous Tinamou","sciName":"Crypturellus cinereus","taxonID":"TC000029"}];
-//
-//var Bird = Backbone.Model.extend({
-//	defaults: {
-//		comName: "",
-//		sciName: "",
-//		taxonID: ""
-//	}
-//});
-
-//var birds = $.map(eBirdJSON,function(v){
-//	return new Bird(v);
-//});
-
-//var eBird = Backbone.Collection.extend({
-//	model: Bird
-//});
-//
-//var eBirdCollection = new eBird();
-//
-//$.getJSON('http://ebird.org/ws1.1/ref/taxa/ebird?cat=species&locale=en_US&fmt=json&callback=?', function(eBirdData) {
-//	console.log('fetched ebird data');
-//	eBirdCollection.add(eBirdData);
-//});
+//if (navigator.geolocation) {
+//	navigator.geolocation.getCurrentPosition(
+//		function(position) {
+//			console.log(position.coords.latitude, position.coords.longitude);
+//		},
+//		function(error) {
+//			var errors = { 
+//			    1: 'Permission denied',
+//			    2: 'Position unavailable',
+//			    3: 'Request timeout'
+//			};
+//			console.error(errors[error.code]);
+//		}
+//	);
+//}
 
 var flickrKey = '41cae44ac5d84579ae23b784321f9377',
     flickrSecret= '421f1282ebace3b5',
@@ -91,81 +23,272 @@ var flickrKey = '41cae44ac5d84579ae23b784321f9377',
     flickrTagMode = 'any',
     flickrFormat = 'json',
     flickrCallback = '?';
+    
+var eBirdBaseUrl = 'http://ebird.org/ws1.1/',
+	eBirdCallback = '?',
+	eBirdFormat = 'json',
+	eBirdTaxaUrl = eBirdBaseUrl+'ref/taxa/ebird?cat=species&fmt='+eBirdFormat+'&callback='+eBirdCallback,
+	eBirdLocalUrl = eBirdBaseUrl+'data/obs/geo/recent?lng=-73.970196&lat=40.774641&dist=50&back=30&fmt='+eBirdFormat+'&callback='+eBirdCallback;
+	
 
-var eBirds = new Backbone.Collection;
+var masterList = workingList = {};
+	
 
-if(localStorage['eBird']) {
-	eBirds.add(JSON.parse(localStorage['eBird']));
-} else {
-	eBirds.url = 'http://ebird.org/ws1.1/ref/taxa/ebird?cat=species&locale=en_US&fmt=json&callback=?';
-	eBirds.fetch({
-		success: function(){
-			localStorage['eBird'] = JSON.stringify(eBirds);
-		}
-	});
-}
+var eBirdsCollection = Backbone.Collection.extend();
 
-var masterList = workingList = eBirds.shuffle();
+var eBirds = new eBirdsCollection();
 
 var Bird = Backbone.Model.extend({
-	initialize: function(){
-		this.set(workingList.shift().toJSON());
-		console.log(this.get('comName')+' initialized');
-		this.setFlickrPhoto();
-		this.setSpeciesOptions();
+
+	defaults: {
+		comName: '',
+		sciName: '',
+		images: [],
+		nameOptions: [],
+		userSelection: ''
 	},
-	setFlickrPhoto: function(){
-		var self = this;
-		flickrTags = this.get('comName')+', '+this.get('sciName');
-		$.getJSON(flickrBaseUrl+'tags='+flickrTags+'&tagmode='+flickrTagMode+'&format='+flickrFormat+'&jsoncallback='+flickrCallback,function(flickrData){
-			if(flickrData.items.length === 0) {
-				console.log('No photos found for '+self.get('comName')+', retrying with different species');
-				self.initialize();
-			} else {
-				console.log(flickrData.items.length+' images found for '+self.get('comName'));
-				self.set({images: _.shuffle(flickrData.items)});
-			}
-		});
+	
+	initialize: function() {
+		console.log('model for '+this.get('comName')+' initialized');
 	},
-	removeFlickrPhoto: function(){
-		this.set({images: this.get('images').shift()});
+	
+	isCorrect: function() {
+		return this.get('comName') == this.get('userSelection');
 	},
-	setSpeciesOptions : function(){
-		var self = this,
-			options = [this.get('comName')];
-		for(var i = 0; i < 4; i++) {
-			options.push(masterList[Math.floor(Math.random()*masterList.length)].get('comName'));
-		}
-		self.set({nameOptions: _.shuffle(options)});
+	
+	clear: function() {
+		this.destroy();
 	}
+	
 });
 
 var BirdCollection = Backbone.Collection.extend({
-	model: Bird
+
+	model: Bird,
+	
+	localStorage: new Store('bird-match'),
+	
+	correct: function() {
+		return this.filter(function(bird){
+			return bird.get('comName') == bird.get('userSelection');
+		});
+	},
+	
+	incorrect: function(){
+		return this.filter(function(bird){
+			return bird.get('comName') != bird.get('userSelection');
+		});
+	}
+	
 });
 
-var birdArray = [];
+var birdCage = new BirdCollection();
 
-for(var i = 0; i < 1; i++) {
-	birdArray.push(new Bird());
-}
+var BirdView = Backbone.View.extend({
 
-var birdCollection = new BirdCollection(birdArray);
-
-var BirdMatch = Backbone.View.extend({
-	model: birdCollection.at(0),
-	el: '#main',
-	initialize: function(){
+	className: 'bird',
+	
+	template: _.template($('#bird-template').html()),
+	
+	events : {
+		"change select" : "updateSelection",
+		"click .change-photo" : "removeFlickrPhoto"
+	},
+	
+	initialize: function() {
 		console.log('view for '+this.model.get('comName')+' created');
-		_.bindAll(this, 'render');
+		_.bindAll(this, 'render', 'remove','updateSelection');
         this.model.bind('change:images', this.render);
+        this.model.bind('destroy', this.remove);
+        this.render();
     },
+    
 	render: function(event) {
 		console.log('rendering template for '+this.model.get('comName'));
-		var compiled_template = _.template($('#question-template').html());
-		$(this.el).html( compiled_template(this.model.toJSON()) );
+		this.$el.html(this.template(this.model.toJSON())).appendTo('#game-board');
+		this.options = this.$('select');
+		this.options.find('option[value="'+this.model.get('userSelection')+'"]').attr('selected', 'selected');
 		return this;
+	},
+	
+	removeFlickrPhoto: function() {
+		this.model.save({images: _.rest(this.model.get('images'))});
+	},
+	
+	updateSelection: function(){
+		this.model.save({'userSelection': this.options.val()});
+		this.render();
+	},
+	
+	clear: function() {
+		this.model.clear();
 	}
 });
 
-var birdMatch = new BirdMatch();
+var BirdMatchApp = Backbone.View.extend({
+
+	el: $('#container'),
+	
+	statsTemplate: _.template($('#stats-template').html()),
+	
+	events: {
+		'click #start-game': 'startGame',
+		'click #continue-game': 'continueGame',
+		'click input[name="pool"]': 'changeDataSet',
+		'change select': 'nextBird',
+	},
+	
+	initialize: function() {
+		_.bindAll(this, 'addOne', 'addAll', 'render');
+	
+		birdCage.bind('add', this.addOne);
+		birdCage.bind('all', this.render);
+		birdCage.fetch();
+		
+		this.changeContext('#title-screen');
+		this.changeDataSet();
+		this.waitingForData = false;
+	},
+	
+	render: function() {
+		
+		var total = birdCage.length,
+			correct = birdCage.correct().length;
+		
+		this.$('#score-board').html(this.statsTemplate({
+			total: birdCage.length,
+			correct: birdCage.correct().length
+		}));
+	},
+	
+	addOne: function(bird) {
+		var view = new BirdView({model: bird});
+		this.changeQuestionFocus(view);
+	},
+	
+	addAll: function() {
+		birdCage.each(this.addOne);
+	},
+	
+	create: function() {
+		var self = this,
+			data = workingList.shift().toJSON(),
+			nameOptions = [],
+			flickrTags = [data['comName'],data['sciName']];
+		
+		console.log('Creating new bird...');
+		
+		self.$el.find('#loading-screen').stop().removeClass('is-hidden').animate({opacity: 1}, 400);
+			
+		$.getJSON(flickrBaseUrl+'tags='+flickrTags.join(',')+'&tagmode='+flickrTagMode+'&format='+flickrFormat+'&jsoncallback='+flickrCallback,function(flickrData) {
+			if(flickrData.items.length === 0) {
+				console.log('No photos found for '+data['comName']+', retrying with different species');
+				self.create();
+			} else {
+				console.log(flickrData.items.length+' images found for '+data['comName']);
+				$.each(flickrData.items,function(i,v){
+					v.media.m = v.media.m.replace('_m', '');
+				});
+				$.extend(data,{images: _.shuffle(flickrData.items)});
+				
+				nameOptions.push(data['comName']);
+				
+				for(var i = 0; i < 4; i++) {
+					nameOptions.push(masterList[Math.floor(Math.random()*masterList.length)].get('comName'));
+				}
+				
+				$.extend(data,{nameOptions: _.shuffle(nameOptions)});
+				
+				birdCage.create(data);
+				
+				self.$el.find('#loading-screen').stop().animate({opacity: 0}, 400,function(){
+					$(this).addClass('is-hidden');
+				})
+			}
+		});
+	},
+	
+	startGame: function() {
+		console.log('Starting Game...');
+		this.changeContext('#game-board');
+		if(birdCage.length) {
+			birdCage.reset();
+			birdCage.localStorage.destroyAll();
+		}
+		this.nextBird();
+	},
+	
+	continueGame: function() {
+		this.changeContext('#game-board');
+		this.addAll();
+	},
+	
+	nextBird: function() {
+		if(this.fetchingData === true) {
+			this.waitingForData = true;
+		} else {
+			this.create();
+		}
+	},
+	
+	checkGameStatus: function() {
+		if(this.waitingForData) {
+			this.create();
+			this.waitingForData = false;
+		}
+	},
+	
+	changeContext: function(selector) {
+		var $newContext = this.$el.children(selector);
+		if($newContext.length) {
+			$newContext.siblings('section').animate({opacity:0},400,function(){$(this).removeClass('has-context')}).promise().done(function(){
+				$newContext.addClass('has-context').animate({opacity:1},400);
+			});
+		}
+	},
+	
+	changeQuestionFocus: function(view) {
+		view.$el.siblings('.bird').animate({opacity:0},400,function(){$(this).removeClass('is-active')}).promise().done(function(){
+			view.$el.addClass('is-active').animate({opacity:1},400);
+		});;
+	},
+	
+	changeDataSet: function() {
+		var val = this.$('input[name="pool"]:checked').val();
+		console.log('changing data set to: '+val);
+		this.dataSet = val;
+		this.setEbirdData();
+	},
+	
+	setEbirdData: function() {
+		var self = this,
+		dataSet = self.dataSet;
+		console.log('Getting '+dataSet+' eBird data...');
+		self.fetchingData = true;
+		if(localStorage[dataSet]) {
+			self.fetchingData = false;
+			eBirds.reset(JSON.parse(localStorage[dataSet]));
+			masterList = workingList = eBirds.shuffle();
+			self.checkGameStatus();
+		} else {
+			var url = (dataSet === 'world')? eBirdTaxaUrl : eBirdLocalUrl;
+			$.getJSON(url, function(data){
+				self.fetchingData = false;
+				localStorage[dataSet] = JSON.stringify(data);
+				eBirds.reset(data);
+				masterList = workingList = eBirds.shuffle();
+				self.checkGameStatus();
+			});
+		}
+	}
+});
+
+var BirdMatch = new BirdMatchApp;
+
+var $loader = $('.loader'),
+	token = 0;
+
+setInterval(function(){
+	$loader.html(token%8);
+	token++;
+}, 100);
