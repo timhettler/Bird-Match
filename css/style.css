@@ -50,6 +50,7 @@ h1 {
 }
 
 #container {
+	background-color: palegoldenrod;
 	background-image: url(../img/flicker.png);
 	background-repeat: no-repeat;
 	background-position: 0 100%;
