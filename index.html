@@ -19,17 +19,7 @@
 
   <div id="container">
   	<header><h1>Bird Match</h1></header>
-  	<section id="title-screen">
-	  	<header>
-	  	    <p>Test your bird-matching skills against photos from Flickr!</p>
-	  	</header>
-	  	<div>
-	  		<label><input type="radio" name="pool" value="world" checked /> Use birds from all over the world</label>
-	  		<label><input type="radio" name="pool" value="local" /> Use birds recently seen around New York City</label>
-	  	</div>
-	  	<!-- <button id="continue-game">Continue Current Game</button> -->
-	  	<button id="start-game">Start New Game</button>
-  	</section>
+  	<section id="title-screen"></section>
     <section id="game-board" role="main">
     <div id="loading-screen" class="is-hidden"><div><span class="loader symbol">1</span><br/>Loading...</div></div>
     </section>
@@ -40,6 +30,20 @@
 
     </footer>
   </div> <!-- eo #container -->
+  
+  	<script id="start-template" type="text/template">
+  		<header>
+  		    <p>Test your bird-matching skills against photos from Flickr!</p>
+  		</header>
+  		<% if (navigator.geolocation) { %>
+  		<div>
+  			<label><input type="radio" name="pool" value="world" checked /> Use birds from all over the world</label>
+  			<label><input type="radio" name="pool" value="local" /> Use birds recently seen around my area</label>
+  		</div>
+  		<% } %>
+  		<!-- <button id="continue-game">Continue Current Game</button> -->
+  		<button id="start-game">Start New Game</button>
+  	</script>
 
 	<script id="bird-template" type="text/template">
 		<figure>

@@ -134,6 +134,8 @@ var BirdMatchApp = Backbone.View.extend({
 
 	el: $('#container'),
 	
+	startTemplate: _.template($('#start-template').html()),
+	
 	statsTemplate: _.template($('#stats-template').html()),
 	
 	events: {
@@ -149,6 +151,8 @@ var BirdMatchApp = Backbone.View.extend({
 		birdCage.bind('add', this.addOne);
 		birdCage.bind('all', this.render);
 		birdCage.fetch();
+		
+		this.$('#title-screen').html(this.startTemplate);
 		
 		this.changeContext('#title-screen');
 		this.changeDataSet();
@@ -259,7 +263,7 @@ var BirdMatchApp = Backbone.View.extend({
 	},
 	
 	changeDataSet: function() {
-		var val = this.$('input[name="pool"]:checked').val();
+		var val = this.$('input[name="pool"]:checked').val() || 'world';
 		console.log('changing data set to: '+val);
 		this.dataSet = val;
 		this.setEbirdData();
