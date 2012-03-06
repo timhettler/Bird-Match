@@ -27,8 +27,12 @@ var flickrKey = '41cae44ac5d84579ae23b784321f9377',
 var eBirdBaseUrl = 'http://ebird.org/ws1.1/',
 	eBirdCallback = '?',
 	eBirdFormat = 'json',
+	eBirdLng = '-73.970196&',
+	eBirdLat = '40.774641',
+	eBirdDist = '50',
+	eBirdDays = '30',
 	eBirdTaxaUrl = eBirdBaseUrl+'ref/taxa/ebird?cat=species&fmt='+eBirdFormat+'&callback='+eBirdCallback,
-	eBirdLocalUrl = eBirdBaseUrl+'data/obs/geo/recent?lng=-73.970196&lat=40.774641&dist=50&back=30&fmt='+eBirdFormat+'&callback='+eBirdCallback;
+	eBirdLocalUrl = eBirdBaseUrl+'data/obs/geo/recent?lng='+eBirdLng+'&lat='+eBirdLat+'&dist='+eBirdDist+'&back='+eBirdDays+'&fmt='+eBirdFormat+'&callback='+eBirdCallback;
 	
 
 var masterList = workingList = {};
@@ -266,13 +270,31 @@ var BirdMatchApp = Backbone.View.extend({
 		dataSet = self.dataSet;
 		console.log('Getting '+dataSet+' eBird data...');
 		self.fetchingData = true;
+		if(dataSet === 'local') {
+			navigator.geolocation.getCurrentPosition(
+				function(position) {
+					console.log('User is at: '+position.coords.latitude, position.coords.longitude);
+					eBirdLng = position.coords.longitude;
+					eBirdLat = position.coords.latitude;
+				},
+				function(error) {
+					var errors = { 
+					    1: 'Permission denied',
+					    2: 'Position unavailable',
+					    3: 'Request timeout'
+					};
+					console.error('Could not determine user location ('+errors[error.code]+'). Using world data instead.');
+					this.dataSet = 'world';
+				}
+			);
+		}
 		if(localStorage[dataSet]) {
 			self.fetchingData = false;
 			eBirds.reset(JSON.parse(localStorage[dataSet]));
 			masterList = workingList = eBirds.shuffle();
 			self.checkGameStatus();
 		} else {
-			var url = (dataSet === 'world')? eBirdTaxaUrl : eBirdLocalUrl;
+			var url = (dataSet === 'world')? eBirdTaxaUrl : eBirdBaseUrl+'data/obs/geo/recent?lng='+eBirdLng+'&lat='+eBirdLat+'&dist='+eBirdDist+'&back='+eBirdDays+'&fmt='+eBirdFormat+'&callback='+eBirdCallback;
 			$.getJSON(url, function(data){
 				self.fetchingData = false;
 				localStorage[dataSet] = JSON.stringify(data);
