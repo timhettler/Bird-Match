@@ -20,7 +20,7 @@ var flickrKey = '41cae44ac5d84579ae23b784321f9377',
     flickrSecret= '421f1282ebace3b5',
     flickrBaseUrl = 'http://api.flickr.com/services/feeds/photos_public.gne?',
     flickrTags = '',
-    flickrTagMode = 'any',
+    flickrTagMode = 'all',
     flickrFormat = 'json',
     flickrCallback = '?';
     
@@ -116,6 +116,7 @@ var BirdView = Backbone.View.extend({
 	},
 	
 	updateSelection: function(){
+		console.log('User selection changed to '+this.options.val());
 		this.model.save({'userSelection': this.options.val()});
 		this.render();
 	},
@@ -250,7 +251,7 @@ var BirdMatchApp = Backbone.View.extend({
 	changeQuestionFocus: function(view) {
 		view.$el.siblings('.bird').animate({opacity:0},400,function(){$(this).removeClass('is-active')}).promise().done(function(){
 			view.$el.addClass('is-active').animate({opacity:1},400);
-		});;
+		});
 	},
 	
 	changeDataSet: function() {
