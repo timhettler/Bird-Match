@@ -280,6 +280,14 @@ var BirdMatchApp = Backbone.View.extend({
 					console.log('User is at: '+position.coords.latitude, position.coords.longitude);
 					eBirdLng = position.coords.longitude;
 					eBirdLat = position.coords.latitude;
+					var url = eBirdBaseUrl+'data/obs/geo/recent?lng='+eBirdLng+'&lat='+eBirdLat+'&dist='+eBirdDist+'&back='+eBirdDays+'&fmt='+eBirdFormat+'&callback='+eBirdCallback;
+					$.getJSON(url, function(data){
+						self.fetchingData = false;
+						localStorage[dataSet] = JSON.stringify(data);
+						eBirds.reset(data);
+						masterList = workingList = eBirds.shuffle();
+						self.checkGameStatus();
+					});
 				},
 				function(error) {
 					var errors = { 
@@ -291,21 +299,22 @@ var BirdMatchApp = Backbone.View.extend({
 					this.dataSet = 'world';
 				}
 			);
-		}
-		if(localStorage[dataSet]) {
-			self.fetchingData = false;
-			eBirds.reset(JSON.parse(localStorage[dataSet]));
-			masterList = workingList = eBirds.shuffle();
-			self.checkGameStatus();
 		} else {
-			var url = (dataSet === 'world')? eBirdTaxaUrl : eBirdBaseUrl+'data/obs/geo/recent?lng='+eBirdLng+'&lat='+eBirdLat+'&dist='+eBirdDist+'&back='+eBirdDays+'&fmt='+eBirdFormat+'&callback='+eBirdCallback;
-			$.getJSON(url, function(data){
+			if(localStorage[dataSet]) {
 				self.fetchingData = false;
-				localStorage[dataSet] = JSON.stringify(data);
-				eBirds.reset(data);
+				eBirds.reset(JSON.parse(localStorage[dataSet]));
 				masterList = workingList = eBirds.shuffle();
 				self.checkGameStatus();
-			});
+			} else {
+				var url = (dataSet === 'world')? eBirdTaxaUrl : eBirdBaseUrl+'data/obs/geo/recent?lng='+eBirdLng+'&lat='+eBirdLat+'&dist='+eBirdDist+'&back='+eBirdDays+'&fmt='+eBirdFormat+'&callback='+eBirdCallback;
+				$.getJSON(url, function(data){
+					self.fetchingData = false;
+					localStorage[dataSet] = JSON.stringify(data);
+					eBirds.reset(data);
+					masterList = workingList = eBirds.shuffle();
+					self.checkGameStatus();
+				});
+			}
 		}
 	}
 });
