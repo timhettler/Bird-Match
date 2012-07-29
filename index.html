@@ -18,32 +18,31 @@
 <body>
 
   <div id="container">
-  	<header><h1>Bird Match</h1></header>
+  	<header>
+        <h1>Bird Match</h1>
+        <p>Test your bird-matching skills against photos from Flickr!</p>
+    </header>
   	<section id="title-screen"></section>
     <section id="game-board" role="main">
     <div id="loading-screen" class="is-hidden"><div><span class="loader symbol">1</span><br/>Loading...</div></div>
     </section>
     <section id="score-board">
-    
     </section>
     <footer>
 
     </footer>
   </div> <!-- eo #container -->
-  
-  	<script id="start-template" type="text/template">
-  		<header>
-  		    <p>Test your bird-matching skills against photos from Flickr!</p>
-  		</header>
-  		<% if (navigator.geolocation) { %>
-  		<div>
-  			<label><input type="radio" name="pool" value="world" checked /> Use birds from all over the world</label>
-  			<label><input type="radio" name="pool" value="local" /> Use birds recently seen around my area</label>
-  		</div>
-  		<% } %>
-  		<!-- <button id="continue-game">Continue Current Game</button> -->
-  		<button id="start-game">Start New Game</button>
-  	</script>
+
+  <script id="start-template" type="text/template">
+    <% if (navigator.geolocation) { %>
+    <div>
+      <label><input type="radio" name="pool" value="world" checked /> Use birds from all over the world</label>
+      <label><input type="radio" name="pool" value="local" /> Use birds recently seen around my area</label>
+    </div>
+    <% } %>
+    <div class="game-options"><!-- <button id="continue-game">Continue Current Game</button> -->
+    <button id="start-game" class="btn btn-primary">Start Matching!</button></div>
+  </script>
 
 	<script id="bird-template" type="text/template">
 		<figure>
@@ -58,12 +57,12 @@
 			<option value="<%= name %>"><%= name %></option>
 		<% }); %>
 		</select>
-		<% if(images.length > 1){ %><div><button class="change-photo">Change Photo</button></div><% } %>
+		<% if(images.length > 1){ %><div><button class="btn btn-warning change-photo">Change Photo</button></div><% } %>
 	</script>
-	
+
 	<script id="stats-template" type="text/template">
 		<ul>
-			<li>Correct: <%= correct %></li>
+			<li><i class="icon-ok"></i> Correct: <%= correct %></li>
 			<li>Total: <%= total %></li>
 		</ul>
 	</script>
@@ -74,7 +73,7 @@
   <script src="js/backbone-localstorage.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.0.0/bootstrap.min.js"></script>
   <script src="js/match.js"></script>
-  
+
   <!-- end scripts-->
 </body>
 </html>

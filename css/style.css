@@ -84,12 +84,16 @@ h1 {
 	display: block;
 }
 
-.bird {
+.bird, .game-options {
 	text-align: center;
 }
 
+.game-options {
+    margin: 1.5em 0;
+}
+
 #loading-screen {
-	background-color: rgba(0, 85, 128, .6);
+	background-color: rgba(255, 255, 255, .6);
 	border-radius: 20px;
 	-webkit-box-orient: horizontal;
 	-webkit-box-pack: center;
@@ -110,7 +114,6 @@ h1 {
 figure img {
 	display: block;
 	margin: 0 auto;
-	max-height: 300px;
 }
 
 
