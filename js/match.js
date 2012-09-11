@@ -81,7 +81,7 @@ var BirdView = Backbone.View.extend({
 
 	initialize: function() {
 		console.log('view for '+this.model.get('comName')+' created');
-		_.bindAll(this, 'render', 'remove','updateSelection');
+		_.bindAll(this, 'render', 'remove');
         this.model.bind('change:images', this.render);
         this.model.bind('destroy', this.remove);
         this.render();
